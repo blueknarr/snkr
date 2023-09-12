@@ -12,7 +12,6 @@ part 'main_state.g.dart';
 class MainState with _$MainState {
   const factory MainState({
     @Default([]) List<Product> products,
-    @Default([]) List<Event> events,
     @Default(false) bool isLoading,
     @Default(0) int appBarIndex,
   }) = _MainState;

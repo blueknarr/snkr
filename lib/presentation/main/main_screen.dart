@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:snkr/presentation/main/main_view_model.dart';
+import 'package:snkr/presentation/main/taps/upcoming.dart';
 
 import 'components/custom_app_bar.dart';
 import 'taps/feed.dart';
@@ -28,7 +29,7 @@ class MainScreen extends StatelessWidget {
           ? switch (state.appBarIndex) {
               0 => Feed(state: state),
               1 => Instock(state: state),
-              _ => Text('Upcoming')
+              _ => Upcoming()
             }
           : const CircularProgressIndicator(),
       bottomNavigationBar: BottomNavigationBar(
@@ -36,7 +37,7 @@ class MainScreen extends StatelessWidget {
         showUnselectedLabels: false,
         onTap: (index) {
           if (index == 1) {
-            context.push('/discover');
+            context.push('/discover', extra: state.products);
           }
         },
         items: const [

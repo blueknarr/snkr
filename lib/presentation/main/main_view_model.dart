@@ -3,11 +3,8 @@ import 'package:snkr/core/result/result.dart';
 import 'package:snkr/domain/use_case/get_products_use_case.dart';
 import 'package:snkr/presentation/main/main_state.dart';
 
-import '../../domain/use_case/get_event_use_case.dart';
-
 class MainViewModel with ChangeNotifier {
   final GetProductsUseCase _getProductsUseCase;
-  //final GetEventUseCase _getEventUseCase;
 
   MainViewModel(this._getProductsUseCase) {
     fetchProducts();
