@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:snkr/presentation/main/main_view_model.dart';
+import '../main_screen.dart';
 
-class CustomAppBar extends StatefulWidget {
-  const CustomAppBar({Key? key, required this.viewModel}) : super(key: key);
-  final MainViewModel viewModel;
+class MainCustomAppBar extends StatefulWidget {
+  //final void Function() onChangeAppBarIndex; 기본형
+  final void Function(String menu) onChangeAppBarIndex;
+  final void Function() onSearchClick;
+
+  const MainCustomAppBar({
+    Key? key,
+    required this.onChangeAppBarIndex,
+    required this.onSearchClick,
+  }) : super(key: key);
 
   @override
-  State<CustomAppBar> createState() => _CustomAppBarState();
+  State<MainCustomAppBar> createState() => _MainCustomAppBarState();
 }
 
-class _CustomAppBarState extends State<CustomAppBar> {
+class _MainCustomAppBarState extends State<MainCustomAppBar> {
   String selectedMenu = 'Feed';
 
   void selectMenu(String menu) {
@@ -43,7 +51,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
             ],
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: widget.onSearchClick,
             icon: const Icon(Icons.search),
           ),
         ],
@@ -70,7 +78,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return InkWell(
       onTap: () {
         selectMenu(menu);
-        widget.viewModel.changeAppBarIndex(menu);
+        widget.onChangeAppBarIndex(menu);
       },
       child: Padding(
         padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
