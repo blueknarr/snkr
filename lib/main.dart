@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:snkr/presentation/main/main_screen.dart';
-
+import 'package:snkr/di/di_setup.dart';
 import 'core/router/router.dart';
 
 void main() {
+  configureDependencies();
   runApp(const MyApp());
 }
 
