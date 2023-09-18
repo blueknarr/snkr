@@ -1,7 +1,9 @@
+import 'package:injectable/injectable.dart';
 import 'package:snkr/core/result/result.dart';
 import 'package:snkr/domain/model/product.dart';
 import 'package:snkr/domain/repository/product_repository.dart';
 
+@singleton
 class GetProductsUseCase {
   final ProductRepository repository;
 

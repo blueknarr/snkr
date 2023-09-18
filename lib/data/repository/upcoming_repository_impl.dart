@@ -1,8 +1,10 @@
+import 'package:injectable/injectable.dart';
 import 'package:snkr/data/api/upcoming_api_impl.dart';
 import 'package:snkr/data/mapper/upcomming_mapper.dart';
 import 'package:snkr/domain/model/upcoming.dart';
 import 'package:snkr/domain/repository/upcoming_repository.dart';
 
+@Singleton(as: UpcomingRepository)
 class UpcomingRepositoryImpl implements UpcomingRepository {
   final UpcomingApiImpl api;
 

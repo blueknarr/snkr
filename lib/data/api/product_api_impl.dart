@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:injectable/injectable.dart';
 import 'package:snkr/data/dto/product_dto.dart';
 import 'package:snkr/domain/api/product_api.dart';
 import 'package:http/http.dart' as http;
 
+@singleton
 class ProductApiImpl implements ProductApi {
   @override
   Future<List<ProductDto>> getProducts() async {

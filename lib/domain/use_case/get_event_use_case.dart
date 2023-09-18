@@ -1,8 +1,10 @@
+import 'package:injectable/injectable.dart';
 import 'package:snkr/domain/model/event.dart';
 import 'package:snkr/domain/repository/event_repostitory.dart';
 
 import '../../core/result/result.dart';
 
+@singleton
 class GetEventUseCase {
   final EventRepository repository;
 

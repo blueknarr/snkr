@@ -1,8 +1,10 @@
+import 'package:injectable/injectable.dart';
 import 'package:snkr/domain/model/upcoming.dart';
 import 'package:snkr/domain/repository/upcoming_repository.dart';
 
 import '../../core/result/result.dart';
 
+@singleton
 class GetUpcomingUseCase {
   final UpcomingRepository repository;
 

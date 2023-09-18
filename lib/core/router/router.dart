@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:snkr/data/api/event_api_impl.dart';
-import 'package:snkr/data/api/product_api_impl.dart';
-import 'package:snkr/data/api/upcoming_api_impl.dart';
-import 'package:snkr/data/repository/event_repository_impl.dart';
-import 'package:snkr/data/repository/product_repository_impl.dart';
-import 'package:snkr/data/repository/upcoming_repository_impl.dart';
-import 'package:snkr/domain/use_case/get_event_use_case.dart';
-import 'package:snkr/domain/use_case/get_products_use_case.dart';
-import 'package:snkr/domain/use_case/get_upcoming_use_case.dart';
 
 import 'package:snkr/presentation/main/main_screen.dart';
 import 'package:snkr/presentation/main/main_view_model.dart';
 import 'package:snkr/presentation/search/search_screen.dart';
 
+import '../../di/di_setup.dart';
 import '../../presentation/discover/discover_screen.dart';
-import '../../presentation/discover/discover_view_model.dart';
 import '../../presentation/main_bottom_navigation_bar.dart';
 
 CustomTransitionPage buildPageWithDefaultTransition<T>({
@@ -37,7 +28,6 @@ CustomTransitionPage buildPageWithDefaultTransition<T>({
         ),
         child: child,
       );
-      ;
     },
   );
 }
@@ -50,9 +40,7 @@ final router = GoRouter(
         path: '/search',
         builder: (context, state) {
           return ChangeNotifierProvider(
-            create: (_) {
-              return;
-            },
+            create: (_) => getIt.get<MainViewModel>(),
             child: const SearchScreen(),
           );
         },
@@ -60,7 +48,9 @@ final router = GoRouter(
             context: context, state: state, child: const SearchScreen())),
     StatefulShellRoute.indexedStack(
       builder: (context, state, StatefulNavigationShell navigationShell) {
-        return MainBottomNavigationBar(navigationShell: navigationShell);
+        return ChangeNotifierProvider(
+            create: (_) => getIt.get<MainViewModel>(),
+            child: MainBottomNavigationBar(navigationShell: navigationShell));
       },
       branches: [
         StatefulShellBranch(routes: [
@@ -68,23 +58,7 @@ final router = GoRouter(
             path: '/',
             builder: (context, state) {
               return ChangeNotifierProvider(
-                create: (_) => MainViewModel(
-                  GetProductsUseCase(
-                    ProductRepositoryImpl(
-                      ProductApiImpl(),
-                    ),
-                  ),
-                  GetEventUseCase(
-                    EventRepositoryImpl(
-                      EventApiImpl(),
-                    ),
-                  ),
-                  GetUpcomingUseCase(
-                    UpcomingRepositoryImpl(
-                      UpcomingApiImpl(),
-                    ),
-                  ),
-                ),
+                create: (_) => getIt.get<MainViewModel>(),
                 child: const MainScreen(),
               );
             },
@@ -95,15 +69,8 @@ final router = GoRouter(
             path: '/discover',
             builder: (context, state) {
               return ChangeNotifierProvider(
-                create: (_) => DiscoverViewModel(
-                  GetEventUseCase(
-                    EventRepositoryImpl(
-                      EventApiImpl(),
-                    ),
-                  ),
-                ),
-                child:
-                    const DiscoverScreen(), //DiscoverScreen(products: state.extra as List<Product>),
+                create: (_) => getIt.get<MainViewModel>(),
+                child: const DiscoverScreen(),
               );
             },
           ),
