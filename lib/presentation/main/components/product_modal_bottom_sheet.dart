@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:snkr/presentation/main/components/product_carousel_slider.dart';
 
 import '../../../domain/model/product.dart';
+import '../main_view_model.dart';
 
 class ProductModalBottomSheet {
   static void show(BuildContext context, Product product) {
@@ -10,6 +12,8 @@ class ProductModalBottomSheet {
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {
+        final viewModel = context.watch<MainViewModel>();
+
         return SizedBox(
           height: MediaQuery.of(context).size.height * 0.87,
           child: CustomScrollView(
@@ -131,24 +135,44 @@ class ProductModalBottomSheet {
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 16),
-                              child: Center(
-                                child: FilledButton.tonal(
-                                  style: ButtonStyle(
-                                    minimumSize: MaterialStateProperty.all(
-                                        const Size(200, 60)),
-                                    backgroundColor:
-                                        const MaterialStatePropertyAll<Color>(
-                                            Colors.black),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  FilledButton.tonal(
+                                    style: ButtonStyle(
+                                      minimumSize: MaterialStateProperty.all(
+                                          const Size(150, 50)),
+                                      backgroundColor:
+                                          const MaterialStatePropertyAll<Color>(
+                                              Colors.black),
+                                    ),
+                                    onPressed: () {
+                                      print('cart click');
+                                      viewModel.addCart(product);
+                                    },
+                                    child: const Text(
+                                      '장바구니',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 16),
+                                    ),
                                   ),
-                                  onPressed: () {
-                                    print('Notify Me');
-                                  },
-                                  child: Text(
-                                    '${product.price}원',
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 16),
+                                  FilledButton.tonal(
+                                    style: ButtonStyle(
+                                      minimumSize: MaterialStateProperty.all(
+                                          const Size(150, 50)),
+                                      backgroundColor:
+                                          const MaterialStatePropertyAll<Color>(
+                                              Colors.black),
+                                    ),
+                                    onPressed: () {},
+                                    child: Text(
+                                      '${product.price}원',
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 16),
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
                             ),
                           ],

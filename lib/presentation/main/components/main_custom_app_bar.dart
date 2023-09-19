@@ -100,5 +100,3 @@ class _MainCustomAppBarState extends State<MainCustomAppBar> {
     );
   }
 }
-
-// Tab bar / indicatorSize: TabBar?IdicatorsSize.tab/ animatedContainer / refreshindicator

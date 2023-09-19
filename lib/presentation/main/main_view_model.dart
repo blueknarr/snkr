@@ -21,6 +21,7 @@ class MainViewModel with ChangeNotifier {
   ) {
     fetchProducts();
     fetchEvents();
+    fetchUpcomings();
   }
 
   MainState _state = const MainState();
@@ -55,6 +56,55 @@ class MainViewModel with ChangeNotifier {
         _state = state.copyWith();
         notifyListeners();
     }
+  }
+
+  Future<void> fetchUpcomings() async {
+    final upcomings = await _getUpcomingUseCase.execute();
+
+    switch (upcomings) {
+      case Success(:final data):
+        _state = state.copyWith(
+          upcomings: data,
+        );
+        notifyListeners();
+      case Error(:final e):
+        _state = state.copyWith();
+    }
+  }
+
+  void removeSearchedProduct() {
+    _state = state.copyWith(
+      searchedProduct: [],
+    );
+    notifyListeners();
+  }
+
+  void searchProduct(String keyword) {
+    _state = state.copyWith(
+      searchedProduct: state.products
+          .where((e) => e.brand == keyword)
+          .map((e) => e)
+          .toList(),
+    );
+    notifyListeners();
+  }
+
+  void keywordAdd(String keyword) {
+    Map<String, bool> keywords = Map.of(state.keywords);
+    keywords.putIfAbsent(keyword, () => true);
+
+    _state = state.copyWith(
+      keywords: keywords,
+    );
+    notifyListeners();
+  }
+
+  void keywordRemove() {
+    Map<String, bool> keywords = {};
+    _state = state.copyWith(
+      keywords: keywords,
+    );
+    notifyListeners();
   }
 
   void addCart(Product product) {

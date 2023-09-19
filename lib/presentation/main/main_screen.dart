@@ -38,7 +38,7 @@ class MainScreen extends StatelessWidget {
           ? switch (state.appBarIndex) {
               0 => Feed(state: state),
               1 => Instock(state: state),
-              _ => Upcoming()
+              _ => Upcoming(state: state)
             }
           : const CircularProgressIndicator(),
     );
