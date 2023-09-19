@@ -4,6 +4,7 @@ import 'package:snkr/core/result/result.dart';
 import 'package:snkr/domain/use_case/get_products_use_case.dart';
 import 'package:snkr/presentation/main/main_state.dart';
 
+import '../../domain/model/product.dart';
 import '../../domain/use_case/get_event_use_case.dart';
 import '../../domain/use_case/get_upcoming_use_case.dart';
 
@@ -54,6 +55,33 @@ class MainViewModel with ChangeNotifier {
         _state = state.copyWith();
         notifyListeners();
     }
+  }
+
+  void addCart(Product product) {
+    Map<String, Product> cart = Map.of(state.cart);
+    if (!isCarted(product.productCode)) {
+      cart.addAll({product.productCode: product});
+    }
+    _state = state.copyWith(cart: cart);
+    notifyListeners();
+  }
+
+  void removeCart(String productCode) {
+    Map<String, Product> cart = Map.of(state.cart);
+    if (isCarted(productCode)) {
+      cart.remove(productCode);
+      _state = state.copyWith(
+        cart: cart,
+      );
+    }
+    notifyListeners();
+  }
+
+  bool isCarted(String productCode) {
+    if (state.cart.containsKey(productCode)) {
+      return true;
+    }
+    return false;
   }
 
   void changeSearchingStatus() {

@@ -7,6 +7,7 @@ import 'package:snkr/presentation/main/main_view_model.dart';
 import 'package:snkr/presentation/search/search_screen.dart';
 
 import '../../di/di_setup.dart';
+import '../../presentation/cart/cart_screen.dart';
 import '../../presentation/discover/discover_screen.dart';
 import '../../presentation/main_bottom_navigation_bar.dart';
 
@@ -71,6 +72,17 @@ final router = GoRouter(
               return ChangeNotifierProvider(
                 create: (_) => getIt.get<MainViewModel>(),
                 child: const DiscoverScreen(),
+              );
+            },
+          ),
+        ]),
+        StatefulShellBranch(routes: [
+          GoRoute(
+            path: '/cart',
+            builder: (context, state) {
+              return ChangeNotifierProvider(
+                create: (_) => getIt.get<MainViewModel>(),
+                child: const CartScreen(),
               );
             },
           ),

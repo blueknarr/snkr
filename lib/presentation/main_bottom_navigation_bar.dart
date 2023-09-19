@@ -39,8 +39,8 @@ class MainBottomNavigationBar extends StatelessWidget {
                   label: 'discover',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.email_outlined),
-                  label: 'email',
+                  icon: Icon(Icons.shopping_cart_outlined),
+                  label: 'cart',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.person_outline),

@@ -14,7 +14,7 @@ class MainState with _$MainState {
     @Default([]) List<Product> products,
     @Default([]) List<Event> events,
     @Default([]) List<String> keywords,
-    @Default({}) Map<String, String> cart,
+    @Default({}) Map<String, Product> cart,
     @Default(false) bool isLoading,
     @Default(false) bool isSearching,
     @Default(0) int appBarIndex,
